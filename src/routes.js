@@ -4,25 +4,35 @@ const routes = express.Router();
 
 const authMiddleware = require('./app/middleware/auth');
 
-const UserController = require('./app/controllers/UserController');
-const SessionController = require('./app/controllers/SessionController');
-const FuncionarioController = require('./app/controllers/FuncionarioController');
+const controllers = require('./app/controllers');
 
 /**
  * User
  */
-routes.post('/users', UserController.store);
 
 /**
  * Session
  */
 
- routes.post('/sessions', SessionController.store);
+ routes.post('/sessions', controllers.SessionController.store);
+
+ routes.use(authMiddleware);
+
+ /**
+  * User
+  */
+ routes.get('/users', controllers.UserController.index);
+ routes.get('/users/:id', controllers.UserController.show);
+ routes.post('/users', controllers.UserController.store);
+ routes.put('/users/:id', controllers.UserController.update);
+ routes.delete('/users/:id', controllers.UserController.destroy);
+
+
 
 /*
 *   Funcionario
  */
-routes.post('/funcionarios', FuncionarioController.store);
+routes.post('/funcionarios', controllers.FuncionarioController.store);
 
 routes.get('/teste', authMiddleware, (req, resp) => resp.json({ ok: true }));
 
