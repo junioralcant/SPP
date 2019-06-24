@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
-const FuncionarioSchema = new mongoose.Schema({
+const Funcionario = new mongoose.Schema({
     nome: {
         type: String,
         required: true
@@ -84,4 +85,5 @@ const FuncionarioSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Funcionario', FuncionarioSchema);
+Funcionario.plugin(mongoosePaginate);
+module.exports = mongoose.model('Funcionario', Funcionario);

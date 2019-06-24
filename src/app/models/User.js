@@ -37,7 +37,7 @@ UserSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, 8);
 });
 
-UserSchema.methods = {
+UserSchema.methods = { // compara as senhas enviada pelo user com a do bd
     compareHash (password) {
         return bcrypt.compare(password, this.password);
     }
@@ -51,6 +51,6 @@ UserSchema.statics = {
     }
 }
 
-UserSchema.plugin(mongoosePaginate);
+UserSchema.plugin(mongoosePaginate); // para usar paginação
 
 module.exports = mongoose.model('User', UserSchema);
