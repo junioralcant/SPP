@@ -6,6 +6,7 @@ const Encarregado = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Funcionario',
         required: true,
+        
     },
     setor: {
         type: String,

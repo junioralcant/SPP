@@ -1,10 +1,18 @@
 const Funcionario = require('../models/Funcionario');
+const Encarregado = require('../models/Encarregado');
 
 class FuncionarioControlller {
 
     async index(req, resp){
 
-        const funcionarios = await Funcionario.paginate({}, {
+        const filters = {}
+
+        if(req.query.nome){
+            filters.nome = new RegExp(req.query.nome, 'i');
+        }
+
+
+        const funcionarios = await Funcionario.paginate(filters, {
             page: req.query.page || 1,
             limit: 20, 
             sort: '-createdAt'
@@ -34,7 +42,10 @@ class FuncionarioControlller {
     }
 
     async destroy(req, resp){
-        await Funcionario.findByIdAndDelete(req.params.id);
+        const funcionario =  await Funcionario.findByIdAndDelete(req.params.id);
+
+        await Encarregado.remove({ nome : funcionario._id })
+            
 
         return resp.send();
     }

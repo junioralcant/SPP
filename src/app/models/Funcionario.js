@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
+const Encarregado = require('./Encarregado');
+//const { nome } = Encarregado;
 
 const Funcionario = new mongoose.Schema({
     nome: {
@@ -84,6 +86,17 @@ const Funcionario = new mongoose.Schema({
         default: Date.now
     }
 });
+
+
+    // // Encarregado.remove({ nome: this._id }).exec();
+    // Funcionario.pre('remove', function(next) {
+    //     Encarregado.find({ nome : this._id }).remove();
+    //    next();
+    // });
+
+
+
+
 
 Funcionario.plugin(mongoosePaginate);
 module.exports = mongoose.model('Funcionario', Funcionario);

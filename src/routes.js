@@ -43,7 +43,7 @@ routes.delete('/funcionarios/:id', controllers.FuncionarioController.destroy);
 
 routes.get('/encarregados', controllers.EncarregadoController.index);
 routes.get('/encarregados/:id', controllers.EncarregadoController.show);
-routes.post('/encarregados/:id', controllers.EncarregadoController.store);
+routes.post('/encarregados', controllers.EncarregadoController.store);
 routes.put('/encarregados/:id', controllers.EncarregadoController.update);
 routes.delete('/encarregados/:id', controllers.EncarregadoController.destroy);
 

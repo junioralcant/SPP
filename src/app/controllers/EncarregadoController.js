@@ -1,9 +1,17 @@
 const Encarregado = require('../models/Encarregado');  
 
 class EncarregadoController {
+    
 
     async index(req, resp){
-        const encarreados = await Encarregado.paginate({},{
+
+        const filters = {};
+
+        if(req.query.nome){
+            filters.nome = new ReaExp(req.query.nome, 'i');
+        }
+
+        const encarreados = await Encarregado.paginate(filters,{
             page: req.query.page || 1,
             limit: 20,
             populate: [ 'nome' ],
@@ -20,7 +28,7 @@ class EncarregadoController {
     }
 
     async store(req, resp){
-        const encarreado = await Encarregado.create({ ...req.body, nome: req.params.id });
+        const encarreado = await Encarregado.create({ ...req.body /*, nome: req.params.id*/ });
 
         return resp.json(encarreado);
     }

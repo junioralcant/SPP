@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const filters = require('../../filter/filters');
 
 class UserController{
 
@@ -9,6 +10,10 @@ class UserController{
         if(req.query.nome){
             filters.nome = new RegExp(req.query.nome, 'i');
         }
+
+        // const nome = req.query.nome;
+
+        // filters(nome);
 
         const users = await User.paginate(filters, {
             page: req.query.page || 1,
